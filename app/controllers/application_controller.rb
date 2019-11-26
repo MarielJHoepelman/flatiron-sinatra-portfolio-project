@@ -10,6 +10,6 @@ class ApplicationController < Sinatra::Base
  end
 
    get '/' do
-     erb "Welcome to whatever this project is about that I still don't know <3"
+     erb "Welcome to Wishable"
    end
 end
