@@ -2,9 +2,11 @@ class CreateWishes < ActiveRecord::Migration[6.0]
   def up
     create_table :wishes do |t|
       t.string :name
-      t.integer :user_id
       t.text :description
       t.string :url
+      t.integer :wish_list_id
+
+      t.timestamps
     end
   end
 
@@ -12,3 +14,6 @@ class CreateWishes < ActiveRecord::Migration[6.0]
     drop_table :wishes
   end
 end
+
+# rake db:migrate:up SINATRA_ENV=test VERSION=20191126175938
+# rake db:migrate:up SINATRA_ENV=development VERSION=20191126175938

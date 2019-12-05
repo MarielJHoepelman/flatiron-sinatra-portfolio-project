@@ -5,6 +5,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :username
       t.string :email
       t.string :password_digest
+
+      t.timestamps
     end
   end
 
@@ -12,3 +14,6 @@ class CreateUsers < ActiveRecord::Migration[6.0]
     drop_table :users
   end
 end
+
+# rake db:migrate:up SINATRA_ENV=test VERSION=20191126175924
+# rake db:migrate:up SINATRA_ENV=development VERSION=20191126175924
