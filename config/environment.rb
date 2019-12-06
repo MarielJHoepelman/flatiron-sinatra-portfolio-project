@@ -20,4 +20,5 @@ configure :production do
   )
 end
 
+require 'sinatra/namespace'
 require_all 'app'

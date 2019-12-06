@@ -1,6 +1,7 @@
 require './config/environment'
 
 class ApplicationController < Sinatra::Base
+  register Sinatra::Namespace 
 
   configure do
    set :public_folder, 'public'
