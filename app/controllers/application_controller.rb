@@ -91,7 +91,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/add_wish_to_wishlist/:id' do
-    @wishlist_id = params[:id]
+    @wishlist = WishList.find(params[:id])
     erb :'add_wish_to_wishlist'
   end
 
