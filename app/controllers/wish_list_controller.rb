@@ -30,5 +30,16 @@ class WishListController <ApplicationController
         erb :'show_wish_list'
       end
     end
+
+    get '/:id/edit' do
+      @user = Helper.current_user(session)
+      @wish_list = WishList.find(params[:id])
+      erb :'edit_wish_list'
+    end
+
+    patch '/wish_list/:id/edit' do
+      "Hello World"
+    end
+
   end
 end
