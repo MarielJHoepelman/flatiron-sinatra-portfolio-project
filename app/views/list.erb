@@ -1,16 +1,20 @@
-</br>
-</br>
+<br/>
+<br/>
 <h2>Welcome, <%= @user.username %>!</h2>
 <h4>Here are all the amazing things you've been wishing for!</h4>
-
+<br/>
+<br/>
 <div class="float-right">
-   <a class="btn btn-primary" href="/show_wish_list" role="button">New WishList</a>
+   <a class="btn btn-primary" href="/new_wish_list" role="button">New WishList</a>
+   <a class="btn btn-primary" href="/list" role="button">Back</a>
 </div>
 
 <ul >
   <% WishList.all.order('id DESC').each do |list| %>
     <li class="shadow-sm bg-white rounded p-3 mb-3">
       <h3><a href="/show_wish_list/<%= list.id %>"> <%= list.name %></a></h3>
+      <h4>Your list has <%= list.wishes.count %> items.</h4>
+      <a class="btn btn-primary" href="/add_wish_to_wishlist/<%= list.id %>" role="button">Add items</a>
     </li>
   <% end %>
 </ul>
