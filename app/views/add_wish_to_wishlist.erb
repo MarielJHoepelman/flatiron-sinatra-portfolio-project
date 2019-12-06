@@ -1,6 +1,6 @@
 <br/>
 <br/>
-<form action="/add_wish_to_wishlist/<%= @wishlist.id %>" method="post">
+<form action="/wish/<%= @wishlist.id %>/new" method="post">
 <div class="form-group">
   <label for="content"> <h3>Add wishes to list <%= @wishlist.name %> </h3> </label>
   <br/>
@@ -16,7 +16,3 @@
 </div>
   <input class="btn btn-dark" type="submit" name="submit" id="submit">
 </form>
-
-<div class="float-right">
-  <a class="btn btn-dark" href="/logout" role="button">Logout</a>
-</div>
