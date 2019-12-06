@@ -8,3 +8,6 @@ use Rack::MethodOverride
 
 # add use controllers here
 run ApplicationController
+use UsersController
+use WishListController
+use WishController
