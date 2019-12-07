@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-# use Rack::Flash
+  use Rack::Flash
+  
   namespace '/users' do
     get '/signup' do
      if Helper.is_logged_in?(session)
