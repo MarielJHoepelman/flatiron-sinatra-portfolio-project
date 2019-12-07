@@ -9,11 +9,20 @@
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="/">
       <img class="logo" src="/images/Wishable-logo.png" alt="logo" />
-    </a>
- </nav>
+      </a>
+    </nav>
+
+    <div class="container">
+      <% if flash.has?(:message) %>
+      <div class="alert alert-primary" role="alert">
+        <%= flash[:message] %>
+      </div>
+      <% end %>
       <%= yield %>
-    <div class="float-right">
-      <a class="btn btn-dark" href="/users/logout" role="button">Logout</a>
+
+      <div class="float-right">
+        <a class="btn btn-dark" href="/users/logout" role="button">Logout</a>
+      </div>
     </div>
   </body>
 </html>
