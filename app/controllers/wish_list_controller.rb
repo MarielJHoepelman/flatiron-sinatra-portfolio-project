@@ -1,5 +1,5 @@
 class WishListController <ApplicationController
-  # use Rack::Flash
+  use Rack::Flash
 
   get '/list' do
     if !Helper.is_logged_in?(session)
@@ -37,9 +37,32 @@ class WishListController <ApplicationController
       erb :'edit_wish_list'
     end
 
-    patch '/wish_list/:id/edit' do
-      "Hello World"
+    patch '/:id/edit' do
+
+      @wish_list = WishList.find(params[:id])
+
+       if Helper.is_logged_in?(session)
+         @wish_list.name = params[:name]
+         @wish_list.save
+         redirect "/wish_list/show/#{@wish_list.id}"
+       else
+         redirect '/login'
+       end
     end
+
+
+    delete '/show/:id' do
+      @wish_list = WishList.find(params[:id])
+
+      if Helper.is_logged_in?(session) && @wish_list.user.id == session[:user_id]
+        @wish_list.delete
+        redirect '/list'
+      else
+        redirect '/users/login'
+      end
+    end
+
+
 
   end
 end
