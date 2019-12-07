@@ -1,0 +1,14 @@
+<div class="edit_wish_wrapper">
+<br/>
+<h3>Edit Wish:</h3>
+<br/>
+<form action="/wish/<%= @wish.id %>/edit" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <input class="form-control" type="text" name="name" value="<%= @wish.name %>"><br/>
+  <input class="form-control" type="text" name="description" value="<%= @wish.description %>"><br/>
+  <input class="form-control" type="text" name="url" value="<%= @wish.url %>"><br/>
+  <input type="submit" value="submit" type="button" class="btn btn-dark">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input class="btn btn-danger" type="submit" value="Delete Wish">
+</form>
+</div>
