@@ -1,18 +1,23 @@
 </br>
 </br>
-<h2>Here is your <%= @newlist.name %> <%= @user.username %>!</h2>
+<h2>Here is your <%= @newlist.name %> list <%= @user.username %>!</h2>
 
 <ul>
    <% @newlist.wishes.each do |w| %>
      <li class="shadow-sm bg-white rounded p-3 mb-3">
-       <h3><%= w.name %></h3>
+       <h2><%= w.name %></h2>
        <h2><%= w.description %></h2>
        <h2><%= w.url %></h2>
+      <a class="btn btn-primary" href="/wish/<%= w.id %>/edit" role="button"> Edit Wish</a>
      </li>
+
    <% end %>
  </ul>
 
 <div class="float-right">
    <a class="btn btn-primary" href="/wish/<%= @newlist.id %>/new" role="button">new wish</a>
+   <a class="btn btn-primary" href="/wish_list/<%= @newlist.id %>/edit" role="button"> Edit List</a>
    <a class="btn btn-primary" href="/list" role="button">Back</a>
+   <input id="hidden" type="hidden" name="_method" value="delete">
+   <input class="btn btn-danger" type="submit" value="Delete List">
 </div>
