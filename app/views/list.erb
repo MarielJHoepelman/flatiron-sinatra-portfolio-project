@@ -14,7 +14,6 @@
       <h3><a href="/wish_list/show/<%= list.id %>"> <%= list.name %></a></h3>
       <h4>Your list has <%= list.wishes.count %> items.</h4>
       <a class="btn btn-primary" href="/wish_list/show/<%= list.id %>" role="button">Add Items</a>
-      <a class="btn btn-primary" href="/wish_list/<%= list.id %>/edit" role="button"> Edit List</a>
     </li>
   <% end %>
 </ul>
