@@ -1,7 +1,8 @@
 require './config/environment'
+require 'rack-flash'
 
 class ApplicationController < Sinatra::Base
-  register Sinatra::Namespace 
+  register Sinatra::Namespace
 
   configure do
    set :public_folder, 'public'
