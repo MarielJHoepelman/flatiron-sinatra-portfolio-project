@@ -8,12 +8,12 @@
    <a class="btn btn-primary" href="/wish_list/new" role="button">New WishList</a>
 </div>
 
-<ul >
-  <% WishList.all.order('id DESC').each do |list| %>
+<div style="list-style: none;">
+  <% @wishlist.order('id DESC').each do |list| %>
     <li class="shadow-sm bg-white rounded p-3 mb-3">
       <h3><a href="/wish_list/show/<%= list.id %>"> <%= list.name %></a></h3>
       <h4>Your list has <%= list.wishes.count %> items.</h4>
       <a class="btn btn-primary" href="/wish_list/show/<%= list.id %>" role="button">Add Items</a>
     </li>
   <% end %>
-</ul>
+</div>
