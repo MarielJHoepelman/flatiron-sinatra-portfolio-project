@@ -35,8 +35,8 @@ class WishController <ApplicationController
     patch '/:id/edit' do
 
       @user = Helper.current_user(session)
-      @wishlist = WishList.find(params[:wish_list_id])
       @wish = Wish.find(params[:id])
+      @wishlist = WishList.find(@wish.wish_list_id)
 
        if @user.id == @wishlist.user_id
          @wish.name = params[:name]
@@ -45,9 +45,24 @@ class WishController <ApplicationController
          @wish.save
          redirect "/wish_list/show/#{@wish.wish_list_id}"
        else
-         "oops, you don't seem to be the owner of this list. Only the owner of the list edit it."
+         flash[:message] = "oops, you don't seem to be the owner of this list. Only the owner of the list edit it."
          redirect '/list'
        end
     end
+
+    delete '/:id' do
+      @user = Helper.current_user(session)
+      @wish = Wish.find(params[:id])
+      @wishlist = WishList.find(@wish.wish_list_id)
+
+      if Helper.is_logged_in?(session) && @wishlist.user.id == session[:user_id]
+        @wish.delete
+        redirect "/wish_list/show/#{@wishlist.id}"
+      else
+        flash[:message] = "oops, you don't seem to be the owner of this list. Only the owner of the list edit it."
+        redirect '/list'
+      end
+    end
+
   end
 end
