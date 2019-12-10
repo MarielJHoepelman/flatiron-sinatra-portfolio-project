@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   use Rack::Flash
-  
+
   namespace '/users' do
     get '/signup' do
      if Helper.is_logged_in?(session)
@@ -16,7 +16,8 @@ class UsersController < ApplicationController
         @user.save
         session[:user_id] = @user.id
       else
-        redirect "/signup"
+        flash[:message] = "Unable to complete your request. Please try again <3"
+        redirect "/users/signup"
       end
       redirect :"/list"
     end
@@ -36,6 +37,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         redirect '/list'
       else
+        flash[:message] = "Unable to complete your request. Please try again <3"
         erb :'/login'
       end
     end
