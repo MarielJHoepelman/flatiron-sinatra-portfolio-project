@@ -3,15 +3,15 @@ class WishController <ApplicationController
 
   namespace '/wish' do
     get '/:wish_list_id/new' do
-      @wishlist = WishList.find(params[:wish_list_id])
+      @wish_list = WishList.find(params[:wish_list_id])
       erb :'add_wish_to_wishlist'
     end
 
     post '/:wish_list_id/new' do
       @user = Helper.current_user(session)
-      @wishlist = WishList.find(params[:wish_list_id])
+      @wish_list = WishList.find(params[:wish_list_id])
 
-      if @user.id == @wishlist.user_id
+      if @user.id == @wish_list.user_id
         @wish = Wish.create(
           name: params[:name],
           description: params[:description],
@@ -36,9 +36,9 @@ class WishController <ApplicationController
 
       @user = Helper.current_user(session)
       @wish = Wish.find(params[:id])
-      @wishlist = WishList.find(@wish.wish_list_id)
+      @wish_list = WishList.find(@wish.wish_list_id)
 
-       if @user.id == @wishlist.user_id
+       if @user.id == @wish_list.user_id
          @wish.name = params[:name]
          @wish.description = params[:description]
          @wish.url = params[:url]
@@ -53,11 +53,11 @@ class WishController <ApplicationController
     delete '/:id' do
       @user = Helper.current_user(session)
       @wish = Wish.find(params[:id])
-      @wishlist = WishList.find(@wish.wish_list_id)
+      @wish_list = WishList.find(@wish.wish_list_id)
 
-      if Helper.is_logged_in?(session) && @wishlist.user.id == session[:user_id]
+      if Helper.is_logged_in?(session) && @wish_list.user.id == session[:user_id]
         @wish.delete
-        redirect "/wish_list/show/#{@wishlist.id}"
+        redirect "/wish_list/show/#{@wish_list.id}"
       else
         flash[:message] = "oops, you don't seem to be the owner of this list. Only the owner of the list edit it."
         redirect '/list'
