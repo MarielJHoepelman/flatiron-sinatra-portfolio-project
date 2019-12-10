@@ -5,7 +5,7 @@ class WishListController <ApplicationController
     if !Helper.is_logged_in?(session)
       redirect '/login'
     else
-      @wishlist = WishList.all
+      @wish_list = WishList.all
       @user = Helper.current_user(session)
       erb :'/list'
     end
@@ -18,8 +18,8 @@ class WishListController <ApplicationController
 
     post '/new' do
       @user = Helper.current_user(session)
-      @wishlist = WishList.create(name: params[:name], user: @user)
-      redirect "/wish_list/show/#{@wishlist.id}"
+      @wish_list = WishList.create(name: params[:name], user: @user)
+      redirect "/wish_list/show/#{@wish_list.id}"
     end
 
     get '/show/:id' do
@@ -27,7 +27,7 @@ class WishListController <ApplicationController
         redirect '/login'
       else
         @user = Helper.current_user(session)
-        @wishlist = WishList.find(params[:id])
+        @wish_list = WishList.find(params[:id])
         erb :'show_wish_list'
       end
     end
@@ -52,14 +52,15 @@ class WishListController <ApplicationController
     end
 
 
-    delete '/show/:id' do
+    delete '/:id' do
       @wish_list = WishList.find(params[:id])
 
       if Helper.is_logged_in?(session) && @wish_list.user.id == session[:user_id]
         @wish_list.delete
         redirect '/list'
       else
-        redirect '/users/login'
+        flash[:message] = "Oops, you don't seem to be the owner of this list. Only the owner of the list can delete it <3"
+        redirect '/list'
       end
     end
 
