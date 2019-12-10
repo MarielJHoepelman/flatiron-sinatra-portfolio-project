@@ -27,9 +27,13 @@ class WishController <ApplicationController
     end
 
     get '/:id/edit' do
-      @user = Helper.current_user(session)
-      @wish = Wish.find(params[:id])
-      erb :'edit_wish'
+      if !Helper.is_logged_in?(session)
+        redirect '/users/login'
+      else
+        @user = Helper.current_user(session)
+        @wish = Wish.find(params[:id])
+        erb :'edit_wish'
+      end 
     end
 
     patch '/:id/edit' do
