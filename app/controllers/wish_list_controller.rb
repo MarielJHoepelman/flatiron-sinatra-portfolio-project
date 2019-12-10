@@ -3,7 +3,7 @@ class WishListController <ApplicationController
 
   get '/list' do
     if !Helper.is_logged_in?(session)
-      redirect '/login'
+      redirect '/users/login'
     else
       @wish_list = WishList.all
       @user = Helper.current_user(session)
@@ -13,7 +13,11 @@ class WishListController <ApplicationController
 
   namespace '/wish_list' do
     get '/new' do
-      erb :'new_wish_list'
+      if !Helper.is_logged_in?(session)
+        redirect '/users/login'
+      else
+        erb :'new_wish_list'
+      end
     end
 
     post '/new' do
@@ -24,7 +28,7 @@ class WishListController <ApplicationController
 
     get '/show/:id' do
       if !Helper.is_logged_in?(session)
-        redirect '/login'
+        redirect '/users/login'
       else
         @user = Helper.current_user(session)
         @wish_list = WishList.find(params[:id])
@@ -33,9 +37,13 @@ class WishListController <ApplicationController
     end
 
     get '/:id/edit' do
-      @user = Helper.current_user(session)
-      @wish_list = WishList.find(params[:id])
-      erb :'edit_wish_list'
+      if !Helper.is_logged_in?(session)
+        redirect '/users/login'
+      else
+        @user = Helper.current_user(session)
+        @wish_list = WishList.find(params[:id])
+        erb :'edit_wish_list'
+      end
     end
 
     patch '/:id/edit' do
@@ -47,7 +55,7 @@ class WishListController <ApplicationController
          @wish_list.save
          redirect "/wish_list/show/#{@wish_list.id}"
        else
-         redirect '/login'
+         redirect '/users/login'
        end
     end
 
@@ -63,8 +71,5 @@ class WishListController <ApplicationController
         redirect '/list'
       end
     end
-
-
-
   end
 end
