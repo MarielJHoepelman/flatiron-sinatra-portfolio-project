@@ -11,3 +11,22 @@ text-align: center;
   width: 250px;
   height: auto;
 }
+
+body {
+  background-color: #f8f9fa;
+}
+
+.footer-copyright {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  background: #FFFFFF;
+}
+
+ul {
+  list-style: none;
+  padding: 0px;
+  width: 100%;
+  float: left;
+  margin: 20px 0;
+}
