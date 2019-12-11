@@ -1,4 +1,8 @@
-# flatiron-sinatra-portfolio-project
+# Wishable
+
+## Description
+
+[Wishable](https://github.com/MarielJHoepelman/flatiron-sinatra-portfolio-project) is a wishes tracker app. With [Wishable](https://github.com/MarielJHoepelman/flatiron-sinatra-portfolio-project) users can easily create wish lists and see other people's lists.
 
 ## Usage
 
@@ -13,4 +17,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the [Wishable](https://github.com/MarielJHoepelman/flatiron-sinatra-portfolio-project) project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the code of conduct.
+Everyone interacting in the [Wishable](https://github.com/MarielJHoepelman/flatiron-sinatra-portfolio-project) project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/MarielJHoepelman/flatiron-sinatra-portfolio-project/blob/master/CODE_OF_CONDUCT.md).
