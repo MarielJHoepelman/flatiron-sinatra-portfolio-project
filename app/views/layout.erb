@@ -8,8 +8,13 @@
   <body>
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="/">
-      <img class="logo" src="/images/Wishable-logo.png" alt="logo" />
+        <img class="logo" src="/images/Wishable-logo.png" alt="logo" />
       </a>
+      <% if Helper.is_logged_in?(session) %>
+        <div class="float-right">
+          <a class="btn btn-dark" href="/users/logout" role="button">Logout</a>
+        </div>
+      <% end %>
     </nav>
 
     <div class="container">
@@ -19,10 +24,10 @@
       </div>
       <% end %>
       <%= yield %>
+    </div>
 
-      <div class="float-right">
-        <a class="btn btn-dark" href="/users/logout" role="button">Logout</a>
-      </div>
+    <div class="footer-copyright text-center py-3">© 2019 Copyright: created by Mariel Hoepelman
+      <a href="https://marielhoepelman.com"> marielhoepelman.com</a>
     </div>
   </body>
 </html>
