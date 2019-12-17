@@ -11,10 +11,13 @@ class UsersController < ApplicationController
     end
 
     post '/signup' do
-      if params["username"] != "" && params["email"] != "" &&  params["password"] != ""
+      if params["username"] != "" && params["email"] != "" &&  params["password"] != "" && Helper.is_valid_email?(params["email"])
         @user = User.new(username: params["username"], email: params["email"], password: params["password"])
         @user.save
         session[:user_id] = @user.id
+      elsif !Helper.is_valid_email?(params["email"])
+        flash[:message] = "Please enter a valid email. Please try again <3"
+        redirect "/users/signup"
       else
         flash[:message] = "Unable to complete your request. Please try again <3"
         redirect "/users/signup"
