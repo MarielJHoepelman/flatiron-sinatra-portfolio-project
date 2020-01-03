@@ -11,32 +11,32 @@
        <h2><%= w.description %></h2>
        <% url = w.url.match(/(http|https)/) ? w.url : "https://#{w.url}" %>
        <h2><a href="<%= url %>" target="_blank"><%= w.url %></a></h2>
-       <br/>
-      <form action="/wish/<%= w.id %>" method="post">
-        <a class="btn btn-secondary btn-sm" href="/wish/<%= w.id %>/edit" role="button"> Edit Wish</a>
-        <input id="hidden" type="hidden" name="_method" value="delete">
-        <input class="btn btn-danger btn-sm" type="submit" value="Delete Wish">
-      </form>
+      <% if @wish_list.is_own_list?(session[:user_id]) %>
+        <form action="/wish/<%= w.id %>" method="post">
+          <a class="btn btn-secondary btn-sm" href="/wish/<%= w.id %>/edit" role="button"> Edit Wish</a>
+          <input id="hidden" type="hidden" name="_method" value="delete">
+          <input class="btn btn-danger btn-sm" type="submit" value="Delete Wish">
+        </form>
+      <% end %>
     </li>
     <% end %>
   <% else %>
   <h3>Add wishes to this wishlist! </h3>
  <% end %>
 </ul>
-
-
 <!-- Footer -->
 <footer class="page-footer font-small blue">
-
   <div class="container text-center text-md-left">
-     <form action="/wish_list/<%= @wish_list.id %>" method="post">
-       <a class="btn btn-secondary" href="/wish/<%= @wish_list.id %>/new" role="button">Add Wish</a>
-       <a class="btn btn-secondary" href="/wish_list/<%= @wish_list.id %>/edit" role="button"> Edit List</a>
-       <a class="btn btn-secondary" href="/list" role="button">Back</a>
-       <input id="hidden" type="hidden" name="_method" value="delete">
-       <input class="btn btn-danger" type="submit" value="Delete List">
-     </form>
+    <a class="btn btn-secondary" href="/list" role="button">Back</a>
+    <br><br>
+    <% if @wish_list.is_own_list?(session[:user_id]) %>
+       <form action="/wish_list/<%= @wish_list.id %>" method="post">
+         <a class="btn btn-secondary" href="/wish/<%= @wish_list.id %>/new" role="button">Add Wish</a>
+         <a class="btn btn-secondary" href="/wish_list/<%= @wish_list.id %>/edit" role="button"> Edit List</a>
+         <input id="hidden" type="hidden" name="_method" value="delete">
+         <input class="btn btn-danger" type="submit" value="Delete List">
+       </form>
+     <% end %>
   </div>
-
 </footer>
 <!-- Footer -->
