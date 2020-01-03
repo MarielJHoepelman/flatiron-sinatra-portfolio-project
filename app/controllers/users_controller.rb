@@ -19,9 +19,9 @@ class UsersController < ApplicationController
           session[:user_id] = @user.id
         else
           if @user.errors[:username].present?
-            flash[:message] = "Username #{@user.username} has been taken"
+            flash[:message] = @user.errors[:username][0]
           elsif @user.errors[:email].present?
-            flash[:message] = "Email #{@user.email} already exists"
+            flash[:message] = @user.errors[:email][0]
           end
           redirect "/users/signup"
         end
