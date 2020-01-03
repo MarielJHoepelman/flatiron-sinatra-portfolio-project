@@ -30,3 +30,7 @@ ul {
   float: left;
   margin: 20px 0;
 }
+
+.container {
+  margin-bottom: 100px;
+}
