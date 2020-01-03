@@ -14,7 +14,17 @@ class UsersController < ApplicationController
       if params["username"] != "" && params["email"] != "" &&  params["password"] != "" && Helper.is_valid_email?(params["email"])
         @user = User.new(username: params["username"], email: params["email"], password: params["password"])
         @user.save
-        session[:user_id] = @user.id
+
+        if @user.valid?
+          session[:user_id] = @user.id
+        else
+          if @user.errors[:username].present?
+            flash[:message] = "Username #{@user.username} has been taken"
+          elsif @user.errors[:email].present?
+            flash[:message] = "Email #{@user.email} already exists"
+          end
+          redirect "/users/signup"
+        end
       elsif !Helper.is_valid_email?(params["email"])
         flash[:message] = "Please enter a valid email. Please try again <3"
         redirect "/users/signup"
@@ -48,11 +58,6 @@ class UsersController < ApplicationController
     get '/logout' do
       session.clear
       redirect to '/'
-    end
-
-    get '/:slug' do
-      @user = User.find_by_slug(params[:slug])
-      erb :'/users/index'
     end
   end
 end
