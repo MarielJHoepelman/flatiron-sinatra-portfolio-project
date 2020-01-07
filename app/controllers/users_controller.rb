@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     end
 
     post '/signup' do
-      if params["username"] != "" && params["email"] != "" &&  params["password"] != "" && Helper.is_valid_email?(params["email"])
+      if Helper.is_valid_email?(params["email"])
         @user = User.new(username: params["username"], email: params["email"], password: params["password"])
         @user.save
 
