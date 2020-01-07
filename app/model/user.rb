@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  validates :username, presence: { message: "Username field cannot be blank." }
   validates :username, uniqueness: { case_sensitive: false,
     message: "Username taken." }
   validates :username, format: { with: /\A[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*\z/,
