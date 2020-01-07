@@ -23,7 +23,12 @@ class WishListController <ApplicationController
     post '/new' do
       @user = Helper.current_user(session)
       @wish_list = WishList.create(name: params[:name], user: @user)
-      redirect "/wish_list/show/#{@wish_list.id}"
+      if @wish_list.valid?
+        redirect "/wish_list/show/#{@wish_list.id}"
+      else
+        flash[:message] = @wish_list.errors[:name][0]
+        redirect '/wish_list/new'
+      end
     end
 
     get '/show/:id' do
