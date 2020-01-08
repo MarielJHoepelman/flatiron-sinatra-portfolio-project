@@ -26,7 +26,7 @@
   ```
     bundle exec rake db:migrate
   ```
- 5. Start the local server and go to https address (e.g http://127.0.0.1:9393)
+5. Start the local server and go to https address (e.g http://127.0.0.1:9393)
 
   ```
     bundle exec shotgun
