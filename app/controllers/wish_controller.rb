@@ -19,7 +19,12 @@ class WishController <ApplicationController
           wish_list_id: params[:wish_list_id]
         )
 
-        redirect "/wish_list/show/#{@wish.wish_list_id}"
+        if @wish.valid?
+          redirect "/wish_list/show/#{@wish.wish_list_id}"
+        else
+          flash[:message] = @wish.errors[:name][0] || @wish.errors[:description][0] || @wish.errors[:url][0]
+          redirect "/wish/#{@wish.wish_list_id}/new"
+        end
       else
         flash[:message] = "oops, you don't seem to be the owner of this list. Only the owner of the list add wishes to it."
         redirect "/list"
@@ -33,7 +38,7 @@ class WishController <ApplicationController
         @user = Helper.current_user(session)
         @wish = Wish.find(params[:id])
         erb :'edit_wish'
-      end 
+      end
     end
 
     patch '/:id/edit' do
