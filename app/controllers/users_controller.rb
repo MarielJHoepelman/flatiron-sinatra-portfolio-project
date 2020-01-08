@@ -11,25 +11,19 @@ class UsersController < ApplicationController
     end
 
     post '/signup' do
-      if Helper.is_valid_email?(params["email"])
-        @user = User.new(username: params["username"], email: params["email"], password: params["password"])
-        @user.save
+      @user = User.new(username: params["username"], email: params["email"], password: params["password"])
+      @user.save
 
-        if @user.valid?
-          session[:user_id] = @user.id
-        else
-          if @user.errors[:username].present?
-            flash[:message] = @user.errors[:username][0]
-          elsif @user.errors[:email].present?
-            flash[:message] = @user.errors[:email][0]
-          end
-          redirect "/users/signup"
-        end
-      elsif !Helper.is_valid_email?(params["email"])
-        flash[:message] = "Please enter a valid email. Please try again <3"
-        redirect "/users/signup"
+      if @user.valid?
+        session[:user_id] = @user.id
       else
-        flash[:message] = "Unable to complete your request. Please try again <3"
+        if @user.errors[:username].present?
+          flash[:message] = @user.errors[:username][0]
+        elsif @user.errors[:email].present?
+          flash[:message] = @user.errors[:email][0]
+        elsif @user.errors[:password_digest].present?
+          flash[:message] = @user.errors[:password_digest][0]
+        end
         redirect "/users/signup"
       end
       redirect :"/list"
