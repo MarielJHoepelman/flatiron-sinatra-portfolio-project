@@ -11,14 +11,14 @@ class UsersController < ApplicationController
     end
 
     post '/signup' do
-      @user = User.new(username: params["username"], email: params["email"], password: params["password"])
+      @user = User.new(name: params["name"], email: params["email"], password: params["password"])
       @user.save
 
       if @user.valid?
         session[:user_id] = @user.id
       else
-        if @user.errors[:username].present?
-          flash[:message] = @user.errors[:username][0]
+        if @user.errors[:name].present?
+          flash[:message] = @user.errors[:name][0]
         elsif @user.errors[:email].present?
           flash[:message] = @user.errors[:email][0]
         elsif @user.errors[:password_digest].present?
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
     end
 
     post '/login' do
-      @user = User.find_by(username: params["username"])
+      @user = User.find_by(email: params["email"])
 
       if @user && @user.authenticate(params[:password])
         session[:user_id] = @user.id
