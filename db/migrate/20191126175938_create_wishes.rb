@@ -14,6 +14,3 @@ class CreateWishes < ActiveRecord::Migration[6.0]
     drop_table :wishes
   end
 end
-
-# rake db:migrate:up SINATRA_ENV=test VERSION=20191126175938
-# rake db:migrate:up SINATRA_ENV=development VERSION=20191126175938
