@@ -6,7 +6,31 @@
 
 ## Usage
 
-Clone this repository to create a local copy in your computer. Run rake db:migrate in your terminal. Run shotgun and copy the https url in your browser.
+1. Clone this repository to create a local copy in your computer.
+
+  ```
+  git clone git@github.com:MarielJHoepelman/flatiron-sinatra-portfolio-project.git
+  ```
+2.  Change directory to the project folder.
+
+  ```
+    cd flatiron-sinatra-portfolio-project
+  ```
+3. Run bundle install to install all dependencies.
+
+  ```
+    bundle install
+  ```
+4. Run the database migrations.
+
+  ```
+    bundle exec rake db:migrate
+  ```
+ 5. Start the local server and go to https address (e.g http://127.0.0.1:9393)
+
+  ```
+    bundle exec shotgun
+  ```
 
 ## Contributing
 
