@@ -11,6 +11,17 @@ class WishListController <ApplicationController
     end
   end
 
+  get '/list/user_lists' do
+    if !Helper.is_logged_in?(session)
+      redirect '/users/login'
+    else
+      @is_user_list = true
+      @wish_list = WishList.where(user_id: session[:user_id])
+      @user = Helper.current_user(session)
+      erb :'/list'
+    end
+  end
+
   namespace '/wish_list' do
     get '/new' do
       if !Helper.is_logged_in?(session)
