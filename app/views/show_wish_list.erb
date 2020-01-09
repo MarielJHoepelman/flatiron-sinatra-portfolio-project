@@ -4,13 +4,14 @@
 <br/>
 <br/>
 <ul>
- <% if @wish_list.wishes.count > 0 %>
-   <% @wish_list.wishes.each do |w| %>
-     <li class="shadow-sm bg-white rounded p-3 mb-3">
-       <h2><%= w.name %></h2>
-       <h2><%= w.description %></h2>
-       <h2><a class="btn btn-link" href="<%= w.url %>" target="_blank">Click here to see item in website.</a></h2>
-      <% if @wish_list.is_own_list?(session[:user_id]) %>
+  <% if @wish_list.wishes.count > 0 %>
+    <% @wish_list.wishes.each do |w| %>
+      <li class="shadow-sm bg-white rounded p-3 mb-3">
+        <h2><%= w.name %></h2>
+        <h2><%= w.description %></h2>
+        <% url = w.url.match(/(http|https)/) ? w.url : "https://#{w.url}" %>
+        <h2><a class="btn btn-link" href="<%= url %>" target="_blank">Click here to see item in website.</a></h2>
+        <% if @wish_list.is_own_list?(session[:user_id]) %>
         <form action="/wish/<%= w.id %>" method="post">
           <a class="btn btn-secondary btn-sm" href="/wish/<%= w.id %>/edit" role="button"> Edit Wish</a>
           <input id="hidden" type="hidden" name="_method" value="delete">
