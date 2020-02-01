@@ -13,9 +13,9 @@ class ApplicationController < Sinatra::Base
 
   get '/' do
     if Helper.is_logged_in?(session)
-      redirect "/list"
+      redirect "/wish_lists"
     else
-      erb :'/homepage'
+      erb :'/welcome'
     end
   end
 end

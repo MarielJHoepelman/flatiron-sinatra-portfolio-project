@@ -2,7 +2,7 @@
 <br/>
 <h3>Edit Wish:</h3>
 <br/>
-<form action="/wish/<%= @wish.id %>/edit" method="post">
+<form action="/wishes/<%= @wish.id %>/edit" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
   <input class="form-control" type="text" name="name" value="<%= @wish.name %>"><br/>
   <input class="form-control" type="text" name="description" value="<%= @wish.description %>"><br/>

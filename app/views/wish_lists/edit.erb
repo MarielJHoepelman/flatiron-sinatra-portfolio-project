@@ -2,12 +2,12 @@
 <br/>
 <h3>Edit WishList:</h3>
 <br/>
-<form action="/wish_list/<%= @wish_list.id %>/edit" method="post">
+<form action="/wish_lists/<%= @wish_list.id %>/edit" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
   <input class="form-control" type="text" name="name" value="<%= @wish_list.name %>"><br/>
   <input type="submit" value="submit" type="button" class="btn btn-dark">
 </form>
-  <form action="/wish_list/show/<%= @wish_list.id %>/" method="post">
+  <form action="/wish_lists/show/<%= @wish_list.id %>/" method="post">
     <input id="hidden" type="hidden" name="_method" value="delete">
     <input class="btn btn-danger" type="submit" value="Delete List">
   </form>

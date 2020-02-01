@@ -1,10 +1,10 @@
 class WishController <ApplicationController
   use Rack::Flash
 
-  namespace '/wish' do
+  namespace '/wishes' do
     get '/:wish_list_id/new' do
       @wish_list = WishList.find(params[:wish_list_id])
-      erb :'add_wish_to_wishlist'
+      erb :'wishes/new'
     end
 
     post '/:wish_list_id/new' do
@@ -20,14 +20,14 @@ class WishController <ApplicationController
         )
 
         if @wish.valid?
-          redirect "/wish_list/show/#{@wish.wish_list_id}"
+          redirect "/wish_lists/show/#{@wish.wish_list_id}"
         else
           flash[:message] = @wish.errors[:name][0] || @wish.errors[:description][0] || @wish.errors[:url][0]
-          redirect "/wish/#{@wish.wish_list_id}/new"
+          redirect "/wishes/#{@wish.wish_list_id}/new"
         end
       else
         flash[:message] = "oops, you don't seem to be the owner of this list. Only the owner of the list add wishes to it."
-        redirect "/list"
+        redirect "/wish_lists"
       end
     end
 
@@ -37,7 +37,7 @@ class WishController <ApplicationController
       else
         @user = Helper.current_user(session)
         @wish = Wish.find(params[:id])
-        erb :'edit_wish'
+        erb :'wishes/edit'
       end
     end
 
@@ -52,10 +52,10 @@ class WishController <ApplicationController
          @wish.description = params[:description]
          @wish.url = params[:url]
          @wish.save
-         redirect "/wish_list/show/#{@wish.wish_list_id}"
+         redirect "/wish_lists/show/#{@wish.wish_list_id}"
        else
          flash[:message] = "oops, you don't seem to be the owner of this list. Only the owner of the list edit it."
-         redirect '/list'
+         redirect '/wish_lists'
        end
     end
 
@@ -66,10 +66,10 @@ class WishController <ApplicationController
 
       if Helper.is_logged_in?(session) && @wish_list.user.id == session[:user_id]
         @wish.delete
-        redirect "/wish_list/show/#{@wish_list.id}"
+        redirect "/wish_lists/show/#{@wish_list.id}"
       else
         flash[:message] = "oops, you don't seem to be the owner of this list. Only the owner of the list edit it."
-        redirect '/list'
+        redirect '/wish_lists'
       end
     end
 
