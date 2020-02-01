@@ -3,15 +3,14 @@ class WishController < ApplicationController
 
   namespace '/wishes' do
     get '/:wish_list_id/new' do
-      @wish_list = WishList.find(params[:wish_list_id])
+      find_wish_list_from_params
       erb :'wishes/new'
     end
 
     post '/:wish_list_id/new' do
-      set_user
-      @wish_list = WishList.find(params[:wish_list_id])
+      find_wish_list_from_params
 
-      if @user.id == @wish_list.user_id
+      if @wish_list.is_own_list?(session[:user_id])
         @wish = Wish.create(
           name: params[:name],
           description: params[:description],
@@ -46,7 +45,7 @@ class WishController < ApplicationController
       @wish = Wish.find(params[:id])
       @wish_list = WishList.find(@wish.wish_list_id)
 
-       if @user.id == @wish_list.user_id
+       if @wish_list.is_own_list?(session[:user_id])
          @wish.name = params[:name]
          @wish.description = params[:description]
          @wish.url = params[:url]
@@ -62,7 +61,7 @@ class WishController < ApplicationController
       @wish = Wish.find(params[:id])
       @wish_list = WishList.find(@wish.wish_list_id)
 
-      if Helper.is_logged_in?(session) && @wish_list.user.id == session[:user_id]
+      if Helper.is_logged_in?(session) && @wish_list.is_own_list?(session[:user_id])
         @wish.delete
         redirect "/wish_lists/show/#{@wish_list.id}"
       else
@@ -70,5 +69,12 @@ class WishController < ApplicationController
         redirect '/wish_lists'
       end
     end
+
+    private
+
+    def find_wish_list_from_params
+      @wish_list = WishList.find(params[:wish_list_id])
+    end
+
   end
 end
