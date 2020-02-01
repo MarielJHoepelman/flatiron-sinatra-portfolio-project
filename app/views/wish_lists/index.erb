@@ -1,0 +1,34 @@
+<div class="d-flex flex-row justify-content-between">
+  <div>
+    <% if @is_user_list %>
+      <h2>Here are your lists <%= @user.name %>!</h2>
+    <% else %>
+      <h2>Welcome, <%= @user.name %>!</h2>
+    <% end %>
+  </div>
+  <div>
+    <% if @is_user_list %>
+      <a class="btn btn-secondary align-self-end" href="/wish_lists" role="button">All Wishlists</a>
+    <% else %>
+      <a class="btn btn-secondary align-self-end" href="/wish_lists/user_lists" role="button">My WishLists</a>
+    <% end %>
+    <a class="btn btn-secondary align-self-end" href="/wish_lists/new" role="button">New WishList</a>
+  </div>
+</div>
+
+<% if @wish_list.count == 0 %>
+  <h4>You dont have any wish lists. <a href="/wish_lists/new">Create one here.</a></h4>
+<% else %>
+  <ul>
+  <% @wish_list.order('id DESC').each do |list| %>
+    <li class="shadow-sm bg-white rounded p-3 mb-3">
+      <% if !@is_user_list %>
+        <h3><%= list.user.name %></h3>
+      <% end %>
+      <h3><%= list.name %></h3>
+      <h4>Your list has <%= list.wishes.count %> items.</h4>
+      <a class="btn btn-secondary" href="/wish_lists/show/<%= list.id %>" role="button">View List</a>
+    </li>
+  <% end %>
+  </ul>
+<% end %>

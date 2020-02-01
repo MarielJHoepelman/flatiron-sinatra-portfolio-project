@@ -1,6 +1,11 @@
 <br/>
 <br/>
-<h2>Here is your <em><%= @wish_list.name %></em> list <%= @user.name %>!</h2>
+<% if @wish_list.is_own_list?(session[:user_id]) %>
+  <h2>Here is your <em><%= @wish_list.name %></em> list <%= @user.name %>!</h2>
+<% else %>
+  <h2>Here is <%= @wish_list.user.name %>'s <em><%= @wish_list.name %></em> list!</h2>
+<% end %>
+
 <br/>
 <br/>
 <ul>
@@ -12,8 +17,8 @@
         <% url = w.url.match(/(http|https)/) ? w.url : "https://#{w.url}" %>
         <h2><a class="btn btn-link" href="<%= url %>" target="_blank">Click here to see item in website.</a></h2>
         <% if @wish_list.is_own_list?(session[:user_id]) %>
-        <form action="/wish/<%= w.id %>" method="post">
-          <a class="btn btn-secondary btn-sm" href="/wish/<%= w.id %>/edit" role="button"> Edit Wish</a>
+        <form action="/wishes/<%= w.id %>" method="post">
+          <a class="btn btn-secondary btn-sm" href="/wishes/<%= w.id %>/edit" role="button"> Edit Wish</a>
           <input id="hidden" type="hidden" name="_method" value="delete">
           <input class="btn btn-danger btn-sm" type="submit" value="Delete Wish">
         </form>
@@ -27,12 +32,12 @@
 <!-- Footer -->
 <footer class="page-footer font-small blue">
   <div class="container text-center text-md-left">
-    <a class="btn btn-secondary" href="/list" role="button">Back</a>
+    <a class="btn btn-secondary" href="/wish_lists" role="button">Back</a>
     <br><br>
     <% if @wish_list.is_own_list?(session[:user_id]) %>
-       <form action="/wish_list/<%= @wish_list.id %>" method="post">
-         <a class="btn btn-secondary" href="/wish/<%= @wish_list.id %>/new" role="button">Add Wish</a>
-         <a class="btn btn-secondary" href="/wish_list/<%= @wish_list.id %>/edit" role="button"> Edit List</a>
+       <form action="/wish_lists/<%= @wish_list.id %>" method="post">
+         <a class="btn btn-secondary" href="/wishes/<%= @wish_list.id %>/new" role="button">Add Wish</a>
+         <a class="btn btn-secondary" href="/wish_lists/<%= @wish_list.id %>/edit" role="button"> Edit List</a>
          <input id="hidden" type="hidden" name="_method" value="delete">
          <input class="btn btn-danger" type="submit" value="Delete List">
        </form>

@@ -4,9 +4,9 @@ class UsersController < ApplicationController
   namespace '/users' do
     get '/signup' do
      if Helper.is_logged_in?(session)
-       redirect "/list"
+       redirect "/wish_lists"
      else
-       erb :'signup'
+       erb :'users/signup'
       end
     end
 
@@ -26,14 +26,14 @@ class UsersController < ApplicationController
         end
         redirect "/users/signup"
       end
-      redirect :"/list"
+      redirect "/wish_lists"
     end
 
     get '/login' do
       if !Helper.is_logged_in?(session)
-        erb :'/login'
+        erb :'users/login'
       else
-        redirect '/list'
+        redirect '/wish_lists'
       end
     end
 
@@ -42,10 +42,10 @@ class UsersController < ApplicationController
 
       if @user && @user.authenticate(params[:password])
         session[:user_id] = @user.id
-        redirect '/list'
+        redirect '/wish_lists'
       else
         flash[:message] = "Unable to complete your request. Please try again <3"
-        erb :'/login'
+        erb :'users/login'
       end
     end
 
