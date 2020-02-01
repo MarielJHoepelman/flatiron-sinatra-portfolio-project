@@ -1,4 +1,4 @@
-class WishController <ApplicationController
+class WishController < ApplicationController
   use Rack::Flash
 
   namespace '/wishes' do
@@ -8,7 +8,7 @@ class WishController <ApplicationController
     end
 
     post '/:wish_list_id/new' do
-      @user = Helper.current_user(session)
+      set_user
       @wish_list = WishList.find(params[:wish_list_id])
 
       if @user.id == @wish_list.user_id
@@ -35,15 +35,14 @@ class WishController <ApplicationController
       if !Helper.is_logged_in?(session)
         redirect '/users/login'
       else
-        @user = Helper.current_user(session)
+        set_user
         @wish = Wish.find(params[:id])
         erb :'wishes/edit'
       end
     end
 
     patch '/:id/edit' do
-
-      @user = Helper.current_user(session)
+      set_user
       @wish = Wish.find(params[:id])
       @wish_list = WishList.find(@wish.wish_list_id)
 
@@ -60,7 +59,6 @@ class WishController <ApplicationController
     end
 
     delete '/:id' do
-      @user = Helper.current_user(session)
       @wish = Wish.find(params[:id])
       @wish_list = WishList.find(@wish.wish_list_id)
 
@@ -72,6 +70,5 @@ class WishController <ApplicationController
         redirect '/wish_lists'
       end
     end
-
   end
 end

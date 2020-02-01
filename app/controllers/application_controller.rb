@@ -18,4 +18,10 @@ class ApplicationController < Sinatra::Base
       erb :'/welcome'
     end
   end
+
+  private
+
+  def set_user
+    @user = Helper.current_user(session)
+  end
 end
