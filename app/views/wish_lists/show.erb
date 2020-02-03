@@ -24,8 +24,9 @@
       <% end %>
     </li>
     <% end %>
-  <% else %>
-  <h3>Add wishes to this wishlist! </h3>
+  <% elsif @wish_list.is_own_list?(session[:user_id]) %>
+    <h5>You don't have any wishes in this list.</h5>
+    <h5>Add wishes to this wish list below! </h5>
  <% end %>
 </ul>
 <!-- Footer -->
