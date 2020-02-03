@@ -22,6 +22,7 @@ group :production do
 end
 
 group :test do
+  gem 'pry'
   gem 'sqlite3'
   gem 'rspec'
   gem 'capybara'
