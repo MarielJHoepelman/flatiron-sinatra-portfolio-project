@@ -129,23 +129,4 @@ describe WishListController do
       expect(WishList.where("id = #{wish_list.id}").length).to eq(0)
     end
   end
-
-  private
-
-  def create_user(name, email, password)
-    User.create(:name => name, :email => email, :password => password)
-  end
-
-  def login_user(user)
-    visit '/users/login'
-
-    fill_in(:email, :with => user.email)
-    fill_in(:password, :with => user.password)
-
-    click_button 'submit'
-  end
-
-  def create_wish_list(name, user_id)
-    WishList.create(:name => name, :user_id => user_id)
-  end
 end
