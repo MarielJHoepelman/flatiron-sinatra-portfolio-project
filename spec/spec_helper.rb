@@ -4,6 +4,7 @@ require_relative '../config/environment'
 require 'rack/test'
 require 'capybara/rspec'
 require 'capybara/dsl'
+require 'wishable_helper'
 
 if ActiveRecord::Base.connection.migration_context.needs_migration?
   raise 'Migrations are pending. Run `rake db:migrate SINATRA_ENV=test` to resolve the issue.'
@@ -16,6 +17,7 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.include Rack::Test::Methods
   config.include Capybara::DSL
+  config.include WishableHelper
   DatabaseCleaner.strategy = :truncation
 
   config.before do
