@@ -170,4 +170,4 @@ describe 'wish lists index page' do
 
     end
   end
-end 
+end
