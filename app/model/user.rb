@@ -10,5 +10,5 @@ class User < ActiveRecord::Base
   validates :password_digest, presence: { message: "Password field cannot be blank." }
 
   has_secure_password
-  has_many :wishlists
+  has_many :wish_lists
 end
