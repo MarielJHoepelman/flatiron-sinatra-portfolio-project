@@ -17,8 +17,8 @@ class WishListController <ApplicationController
         redirect '/users/login'
       else
         @is_user_list = true
-        @wish_list = WishList.where(user_id: session[:user_id])
         set_user
+        @wish_list = @user.wish_lists
         erb :'/wish_lists/index'
       end
     end
